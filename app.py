@@ -2,6 +2,8 @@
 import boto3
 from urllib.parse import unquote_plus
 import ffmpeg
+import os
+import subprocess
 
 s3 = boto3.client("s3")
 
@@ -9,6 +11,10 @@ def lambda_handler(event, context):
     bucket_name = event["bucket"]
     object_key = event["key"]
     thumbnail_key = object_key.rsplit(".", 1)[0] + "_thumbnail.jpg"
+
+    result = subprocess.run(['ffmpeg', '-version'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    print(result.stdout.decode())
+
 
     TMP_VIDEO_PATH = f"/tmp/video.mp4"
     TMP_THUMB_PATH = f"/tmp/thumbnail.jpg"

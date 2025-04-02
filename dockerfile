@@ -6,6 +6,9 @@ FROM --platform=linux/amd64 public.ecr.aws/lambda/python:3.13
 COPY requirements.txt .
 COPY app.py /var/task/
 
+COPY ffmpeg_static/ffmpeg /usr/local/bin/ffmpeg
+RUN chmod +x /usr/local/bin/ffmpeg
+
 # Install dependencies if needed
 RUN pip install -r requirements.txt
 

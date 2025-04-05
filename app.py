@@ -10,8 +10,8 @@ def lambda_handler(event, context):
     object_key = event["key"]
     thumbnail_key = object_key.rsplit(".", 1)[0] + "_thumbnail.jpg"
 
-    TMP_VIDEO_PATH = f"$/tmp/{uuid()}_video.mp4"
-    TMP_THUMB_PATH = f"/tmp/{uuid()}_thumbnail.jpg"
+    TMP_VIDEO_PATH = f"/tmp/{str(uuid.uuid4())}_video.mp4"
+    TMP_THUMB_PATH = f"/tmp/{str(uuid.uuid4())}_thumbnail.jpg"
 
     try:
         s3.download_file(bucket_name, object_key, TMP_VIDEO_PATH)
